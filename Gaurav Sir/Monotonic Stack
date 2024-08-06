@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+#define MAX_SIZE 100
+
+int main() {
+
+    int n;
+
+    // INPUT THE SIZE OF THE ARRAY
+    scanf("%d", &n);
+
+    int arr[MAX_SIZE];
+    int next_greater[MAX_SIZE];
+
+    // INPUT THE ELEMENTS OF THE ARRAY
+    for(int i = 0; i < n; i++) {
+
+        scanf("%d", &arr[i]);
+    }
+
+    // INITIALIZE THE MONOTONIC STACK AND NEXT GREATER ELEMENT ARRAY
+    int stack[MAX_SIZE];
+    int top = -1;
+
+    for(int i = 0; i < n; i++) {
+
+        // WHILE THE STACK IS NOT EMPTY AND THE CURRENT ELEMENT IS GREATER THAN THE ELEMENT AT THE TOP OF THE STACK
+        while(top != -1 && arr[stack[top]] < arr[i]) {
+
+            // THE NEXT GREATER ELEMENT FOR THE ELEMENT AT THE TOP OF THE STACK IS THE CURRENT ELEMENT
+            next_greater[stack[top]] = arr[i];
+
+            // POP THE ELEMENT FROM THE STACK
+            top--;
+        }
+
+        // PUSH THE CURRENT INDEX ONTO THE STACK
+        stack[++top] = i;
+    }
+
+    // FILL NEXT GREATER ELEMENT FOR REMAINING ELEMENTS
+    while(top != -1) {
+
+        next_greater[stack[top]] = -1; // NO NEXT GREATER ELEMENT
+        top--;
+    }
+
+    // PRINT THE NEXT GREATER ELEMENTS
+    for(int i = 0; i < n; i++) {
+
+        printf("%d ", next_greater[i]);
+    }
+
+    printf("\n");
+
+    return 0;
+}
