@@ -1,52 +1,47 @@
 #include <stdio.h>
 
-// Function to perform insertion sort
-void insertionSort(int arr[], int n) {
-    int i, key, j;
-  
-    for (i = 1; i < n; i++) {
-  
-      key = arr[i];
-      
-      j = i - 1;
+#define MAX_SIZE 100
 
-        // Move elements of arr[0..i-1], that are greater than key,
-        // to one position ahead of their current position
-        while (j >= 0 && arr[j] > key) {
-      
-          arr[j + 1] = arr[j];
-          
-          j = j - 1;
-        
-        }
-        
-      arr[j + 1] = key;
-    }
-}
-
-// Function to print an array
-void printArray(int arr[], int size) {
-    int i;
-    
-  for (i = 0; i < size; i++) {
-  
-    printf("%d ", arr[i]);
-    
-  }
-  
-  printf("\n");
-}
-
-// Driver code
 int main() {
-  
-  int arr[] = {12, 11, 13, 5, 6};
-  
-  int n = sizeof(arr) / sizeof(arr[0]);
 
-  insertionSort(arr, n);
-  
-  printArray(arr, n);
+    int n;
 
-  return 0;
+    // INPUT THE SIZE OF THE ARRAY
+    scanf("%d", &n);
+
+    int arr[MAX_SIZE];
+
+    // INPUT THE ELEMENTS OF THE ARRAY
+    for(int i = 0; i < n; i++) {
+
+        scanf("%d", &arr[i]);
+    }
+
+    // INSERTION SORT ALGORITHM
+    for(int i = 1; i < n; i++) {
+
+        int key = arr[i];
+
+        int j = i - 1;
+
+        // MOVE ELEMENTS OF arr[0..i-1], THAT ARE GREATER THAN KEY, TO ONE POSITION AHEAD OF THEIR CURRENT POSITION
+        while(j >= 0 && arr[j] > key) {
+
+            arr[j + 1] = arr[j];
+
+            j = j - 1;
+        }
+
+        arr[j + 1] = key;
+    }
+
+    // PRINT THE SORTED ARRAY
+    for(int i = 0; i < n; i++) {
+
+        printf("%d ", arr[i]);
+    }
+
+    printf("\n");
+
+    return 0;
 }
