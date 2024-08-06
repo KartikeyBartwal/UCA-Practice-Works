@@ -1,66 +1,51 @@
 #include <stdio.h>
-#include <assert.h>
-#include <stdlib.h>
-#include <time.h>
-#include <sys/time.h>
 
-void exch(int arr[], int i, int j)
-{
-  int temp = arr[i];
-  arr[i] = arr[j];
-  arr[j] = temp;
-}
+#define MAX_SIZE 100
 
-void selection_sort(int arr[], int n)
-{
-  for(int i = 0; i < n; i++)
-  {
-    int min = i;
-    for(int j = i+1; j < n; j++)
-    {
-       if(arr[j] < arr[min]) min = j;
+int main() {
+
+    int n;
+
+    // INPUT THE SIZE OF THE ARRAY
+    scanf("%d", &n);
+
+    int arr[MAX_SIZE];
+
+    // INPUT THE ELEMENTS OF THE ARRAY
+    for(int i = 0; i < n; i++) {
+
+        scanf("%d", &arr[i]);
     }
-    exch(arr, i, min);
-  }
-}
 
-long long time_elapsed(int n)
-{
-  int *arr = (int *) malloc(n * sizeof(int));
+    // SELECTION SORT ALGORITHM
+    for(int i = 0; i < n - 1; i++) {
 
-  srand(time(NULL));
-  for(int i = 0; i < n; i++) arr[i] = rand();
+        // FIND THE MINIMUM ELEMENT IN UNSORTED ARRAY
+        int min_idx = i;
 
-  struct timeval before;
-  gettimeofday(&before, NULL);
-  long long before_millis = before.tv_sec*1000LL + before.tv_usec/1000;
+        for(int j = i + 1; j < n; j++) {
 
-  selection_sort(arr, n);
+            if(arr[j] < arr[min_idx]) {
 
-  struct timeval after;
-  gettimeofday(&after, NULL);
-  long long after_millis = after.tv_sec*1000LL + after.tv_usec/1000;
+                min_idx = j;
+            }
+        }
 
-  return after_millis-before_millis;
-}
+        // SWAP THE FOUND MINIMUM ELEMENT WITH THE FIRST ELEMENT
+        int temp = arr[min_idx];
 
-void test_simple_input()
-{
-  int input[] = {5, 3, 1, 9, 7};
-  int expected_output[] = {1, 3, 5, 7, 9};
+        arr[min_idx] = arr[i];
 
-  selection_sort(input, 5);
+        arr[i] = temp;
+    }
 
-  for(int i = 0; i < 5; i++) assert(input[i] == expected_output[i]);
-}
+    // PRINT THE SORTED ARRAY
+    for(int i = 0; i < n; i++) {
 
-int main()
-{
-  test_simple_input();
+        printf("%d ", arr[i]);
+    }
 
-  long long t1 = time_elapsed(32000);
-  long long t2 = time_elapsed(64000);
+    printf("\n");
 
-  printf("%lf", t2*1.0/t1);
-  return 0;
+    return 0;
 }
