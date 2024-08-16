@@ -1,2 +1,38 @@
 1) Bootstrap should be called upon before your style.css
 2) Responsiveness came in CSS3
+3) Var vs Let
+
+function varScoping() {
+  var x = 1;
+
+  if (true) {
+    var x = 2;
+    console.log(x); // will print 2
+  }
+
+  console.log(x); // will print 2
+}
+
+function letScoping() {
+  let x = 1;
+
+  if (true) {
+    let x = 2;
+    console.log(x); // will print 2
+  }
+
+  console.log(x); // will print 1
+}
+
+4) Hoisting:
+You need to declare and initialize variables and functions before their calling. 
+For var: 
+
+console.log( x );   // will give garbage value
+var x = 10;
+console.log( x );   // will give 10 
+
+For let:
+
+console.log( x );    // returns error
+var x = 10; 
